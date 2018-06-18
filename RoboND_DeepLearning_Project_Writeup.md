@@ -1,6 +1,6 @@
 [//]: # (Image References)
 [image0]: ./docs/misc/sim_screenshot.png
-[image1]: ./docs/FCN_Model.png
+[image1]: ./docs/FCN_Model0.png
 [image2]: ./docs/Following_Target_v2.png
 [image3]: ./docs/Patrol_Without_Target_v2.png
 [image4]: ./docs/Patrol_With_Target_v2.png
