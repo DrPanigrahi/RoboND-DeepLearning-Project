@@ -200,13 +200,17 @@ ecoders/decoders | filter_size | batch_size | num_epochs | workers | training_ti
 
 The training time heavily depends on the filter size. By doubling the filter size from 32 to 64 resulted in three times the training time.  Also, keeping the same filter size (32) but making deeper convolution layers, caused the training time to be longer.  However, the deeper model (4 encoders and 4 decoders) with smaller filter depth (32) seems to take lesser training time per epoch than the larger filter depth. Keeping all parameters the same but adding additional convolution layer caused the model training time to be doubles while it did not help improve the accuracy of prediction (compare row2 and row 4 in the above table). However it seems that increasing the filter depth from 32 to 64 and increasing the number of epochs helped improve the prediction accuracy. The final training loss for model trained with encoder size 32 (left, for second row from the table) and 64 (right, for third row from the table) are shown below.
 
-![alt text][image8] ![alt text][image9]
+![alt text][image8] 
+![alt text][image9]
 
 The examples for the target following, patroling without target and patroling with target is shown below for the model with ecoder size 32.
+
 ![alt text][image2]
 ![alt text][image3]
 ![alt text][image4]
+
 The examples for the target following, patroling without target and patroling with target is shown below for the model with ecoder size 64.
+
 ![alt text][image5]
 ![alt text][image6]
 ![alt text][image7]
