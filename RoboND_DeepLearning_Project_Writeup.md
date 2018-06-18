@@ -1,46 +1,28 @@
 [//]: # (Image References)
-[image1]: ./pr2_robot/output/PR2_Robot_Back.jpg
-[image2]: ./pr2_robot/output/PR2_Robot_Front.jpg
-[image3]: ./pr2_robot/output/RViz_Sensor_Stick.png
-[image4]: ./pr2_robot/output/test3-world.png
-[image5]: ./pr2_robot/output/feature-capture.png
-[image6]: ./pr2_robot/output/exercise3_detection.png
-[image7]: ./pr2_robot/output/exercise3_clustering.png
-[image8]: ./pr2_robot/output/exercise3_clustering-2.png
-[image9]: ./pr2_robot/output/norm_conf_mat5_100_set2.png
-[image10]: ./pr2_robot/output/norm_conf_mat8_100_set3.png
-[image11]: ./pr2_robot/output/pcl-table-set1.png
-[image12]: ./pr2_robot/output/pcl-table-set2.png
-[image13]: ./pr2_robot/output/pcl-table-set3.png
-[image14]: ./pr2_robot/output/pcl-objects-set1.png
-[image15]: ./pr2_robot/output/pcl-objects-set2.png
-[image16]: ./pr2_robot/output/pcl-objects-set3.png
-[image17]: ./pr2_robot/output/pcl-cluster-set1.png
-[image18]: ./pr2_robot/output/pcl-cluster-set2.png
-[image19]: ./pr2_robot/output/pcl-cluster-set3.png
-[image20]: ./pr2_robot/output/picking-item.png
-[image21]: ./pr2_robot/output/pick-list2-using-model3-detection.png
-[image22]: ./pr2_robot/output/pick-list2-using-model2-detection.png
-[image23]: ./pr2_robot/output/pick-list2-using-model2-matching.png
-[image24]: ./pr2_robot/output/pick-list2-items-picked.png
-
-[video01]: ./pr2_robot/output/Perception_Project_Video.mov
-
+[image0]: ./docs/misc/sim_screenshot.png
+[image1]: ./docs/FCN_Model0.png
+[image2]: ./docs/Following_Target_v2.png
+[image3]: ./docs/Patrol_Without_Target_v2.png
+[image4]: ./docs/Patrol_With_Target_v2.png
+[image5]: ./docs/Following_Target_v3.png
+[image6]: ./docs/Patrol_Without_Target_v3.png
+[image7]: ./docs/Patrol_With_Target_v3.png
+[image8]: ./docs/Training_Curves_32.png
+[image9]: ./docs/Training_Curves_64.png
 
 # Project: Follow Me Using Deep Learning 
 ## Deep Learning Project ##
 
 In this project, we will train a deep neural network to identify and track a target in simulation. So-called “follow me” applications like this are key to many fields of robotics and the very same techniques you apply here could be extended to scenarios like advanced cruise control in autonomous vehicles or human-robot collaboration in industry.
 
-In particular we will applying the deep learning technique called Fully Convolutional Network (FCN) to the images captured by the cameras mounted onto the drone. The drone has the task of following its master. Since the drone is not as smart as the humans or the animals/birds, we need to train the drone using the images from the camera, to identify the master and follow. The master could be a person or an animal. In any case, the drone first needs to train using the appropriate image set and then predict.  If the master changes or master's characteristics changes then the drone's image network must be retrained to calibrate to the new master or charactersitics. For example, if the master changes its apprearance, then the network must be retrained in order to be able to execute the following mode. 
+In particular, we will apply the deep learning technique called Fully Convolutional Network (FCN) to the images captured by the cameras mounted onto the drone. The drone has the task of following its master. Since the drone is not as smart as the humans or the animals/birds, we need to train the drone using the images from the camera, to identify the master and follow. The master could be a person or an animal. In any case, the drone first needs to train using the appropriate image set and then predict.  If the master changes or master's characteristics changes then the drone's image network must be retrained to calibrate to the new master or charactersitics. For example, if the master changes its apprearance, then the network must be retrained in order to be able to execute the following mode. 
 
-[image_0]: ./docs/misc/sim_screenshot.png
-![alt text][image_0] 
+![alt text][image0] 
 
 ## Setup Instructions
 **Clone the repository**
 ```
-$ git clone https://github.com/udacity/RoboND-DeepLearning.git
+$ git clone https://github.com/DrPanigrahi/RoboND-DeepLearning.git
 ```
 
 **Download the QuadSim binary**
@@ -68,7 +50,7 @@ If for some reason you choose not to use Anaconda, you must install the followin
 * PyQt4/Pyqt5
 
 **Training Deep Learning Model**
-The FCN model needs to be trained using the `model_training.ipynb`. The training process can be extremely time consuming on a local computer.  I have tried several parameter tuning in order to get the desired accuracy lavel of 40%.  Then using the trained model we can perform the segmentation and classification of the master target. Once you are comfortable with performance on the training dataset, see how it performs in live simulation!
+The FCN model needs to be trained using the `model_training.ipynb`. The training process can be extremely time consuming on a local computer.  I have tried several parameter tuning in order to get the desired accuracy lavel of 40%.  Then using the trained model we can perform the segmentation and classification of the master target. Once we are comfortable with performance on the training dataset, we can check how it performs in live simulation!
 
 
 ## Collecting Training Data ##
@@ -181,9 +163,11 @@ $ python follower.py my_amazing_model.h5
 ## Final Results
 
 ### Network Architecture
-The fully convolutional network (FCN) in this project cosists of the input layer, three/four encoder layers, one 1x1 convolution and three/four decoder layers. Each encoder layer reduces the size of the previous layer by a factor of two. The encoder layers consist of a convolution followed by a batch normalization layer which ensures faster learning progress by re-normalizing the feature vectors for each batch during training. The encoder layers are followed by a 1x1 convolution that retains the shape of the output of the last encoder. This convolutional layer is used instead of a fully connected layer in order to retain the spacial information of the segmented image. After this layer, three decoder layers are used to interpolate the segmentation back to the resolution of the input image. Each decoder uses bilinear interpolation to increase the resolution by a factor of two. 
+The fully convolutional network (FCN) in this project cosists of the input layer, three/four encoder layers, one 1x1 convolution and three/four decoder layers. Each encoder layer reduces the size of the previous layer by a factor of two while increasing the depth of the convolution. The encoder layers consist of a convolution followed by a batch normalization layer which ensures faster learning progress by re-normalizing the feature vectors for each batch during training. The encoder layers are followed by a 1x1 convolution that retains the shape of the output of the last encoder. This convolutional layer is used instead of a fully connected layer in order to retain the spacial information of the segmented image. After this layer, three/four decoder layers are used to interpolate the segmentation back to the resolution of the input image. Each decoder uses bilinear interpolation to increase the resolution by a factor of two. 
 
-In the network with the highest accuracy the first encoder has a filter depth of 64 and the 1x1 convolution has a filter depth of 256. The output layer consists of a dense layer with softmax activation function. It has three output classes for background, target object and other objects. Thus the fully-connected output layer will be able to classify each of the pixels in the image as one of the three output classes.
+In the network with the highest accuracy the first encoder has a filter depth of 64 and the 1x1 convolution has a filter depth of 256. The output layer consists of a dense layer with softmax activation function. It has three output classes color coded for background, target object (the master/hero) and other objects. Thus the fully-connected output layer will be able to classify each of the pixels in the image as one of the three output classes. The following figure shows the FCN model that performed the best. 
+
+![alt text][image1] 
 
 ### Parameter Tuning
 The hyperparameters used will determine not only how well the network gets trained but also determines how fast our network gets trained. 
@@ -203,8 +187,7 @@ workers = 8
 print("steps per epoch: ", steps_per_epoch)
 print("validation steps: ", validation_steps)
 ```
-Adam algorithm is used for the training optimization. The deafult learning for Adam optimizer in Keras is 0.001.  However, I chose 0.002 to speed uop the training. We also have to take care to not make the leraning rate too high or too low. Too high learning rate might not be able to converge to the minimum and at times might even skip the minimum and blow up. Choosing a learining rate that is too low might result in the training getting stuck in a local minimum which would not result in a good model. This problem is mitigated when using the Adam optimizer because it will dynamically adjust the training rate as the training progresses.
-
+Adam algorithm is used for the training optimization. The deafult learning for Adam optimizer in Keras is 0.001.  However, I chose 0.002 to speed up the training. We also have to take care to not make the leraning rate too high or too low. Too high learning rate might not be able to converge to the minimum and at times might even skip the minimum and blow up. Too low learining rate might result in the training getting stuck in a local minimum. This problem addressed using the Adam optimizer since it dynamically adjusts the training rate as the training progresses. 
 
 Below table shows the accuracy score and training time on a local Ubuntu computer:
 
@@ -215,7 +198,22 @@ ecoders/decoders | filter_size | batch_size | num_epochs | workers | training_ti
 3/3 | 64 | 48 | 48 | 8 | 28 hrs. (35 min/epoch) | 43.21
 4/4 | 32 | 48 | 40 | 8 | 20 hrs. (30 min/epoch) | 38.58
 
-The training time heavily depends on the filter size. By doubling the filter size from 32 to 64 resulted in three times the training time.  Also, keeping the same filter size (32) but making deeper convolution layers, caused the training time to be longer.  However, the deeper model (4 encoders and 4 decoders) with smaller filter depth (32) seems to take lesser training time per epoch than the larger filter depth. Keeping all parameters the same but adding additional convolution layer caused the model training time to be doubles while it did not help improve the accuracy of prediction (compare row2 and row 4 in the above table). However it seems that increasing the filter depth from 32 to 64 and increasing the number of epochs helped improve the prediction accuracy.
+The training time heavily depends on the filter size. By doubling the filter size from 32 to 64 resulted in three times the training time.  Also, keeping the same filter size (32) but making deeper convolution layers, caused the training time to be longer.  However, the deeper model (4 encoders and 4 decoders) with smaller filter depth (32) seems to take lesser training time per epoch than the larger filter depth. Keeping all parameters the same but adding additional convolution layer caused the model training time to be doubles while it did not help improve the accuracy of prediction (compare row2 and row 4 in the above table). However it seems that increasing the filter depth from 32 to 64 and increasing the number of epochs helped improve the prediction accuracy. The final training loss for model trained with encoder size 32 (left, for second row from the table) and 64 (right, for third row from the table) are shown below.
+
+![alt text][image8] 
+![alt text][image9]
+
+The examples for the target following, patroling without target and patroling with target is shown below for the model with ecoder size 32.
+
+![alt text][image2]
+![alt text][image3]
+![alt text][image4]
+
+The examples for the target following, patroling without target and patroling with target is shown below for the model with ecoder size 64.
+
+![alt text][image5]
+![alt text][image6]
+![alt text][image7]
 
 
 ## Model Limitations and Possible Enhancements
