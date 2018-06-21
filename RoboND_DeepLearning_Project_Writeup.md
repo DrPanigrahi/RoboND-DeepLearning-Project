@@ -232,7 +232,7 @@ The examples for the target following, patroling without target and patroling wi
 - I would really like to use this FCN to train real-world images. I might try it out at a later time.
 
 ### Notes to Udacity Curriculum Developers
-- When I took the course, I had an impression that I will be learning state of the art techniques!  However, the deeplearning methods covered in the course material seems completely outdated.  Am I supposed to celebrate for getting an accuracy score of 40%?  This 40% is not only completely useless in the simulation scenario but also getting the score of 40% will be absolutely impossible to acchive in the real world scnario with varying lighting and weather conditions. The 40% accuracy would have been state of the art a decade ago, not in the year 2018!  The goal of the project should have been to achieve at least 80% accuracy.  It is disappointing that Udacity abruptly ended the course without providing methods to improve the accuracy upto atleast 80%-90%. I would suggest that Udacity include addidtional deep learning techniques (for example GAN) to bring the accuracy scores above 80% in real-world conditions.
+- It is disappointing that Udacity abruptly ended the course without providing methods to improve the accuracy upto atleast 80%-90%. I would suggest that Udacity include addidtional deep learning techniques to bring the accuracy scores above 80% in real-world conditions.
 - It would be great if Udacity provided some real-world images for training and testing. I would suggest this as a proposed add-on/enhancement to this course/project for future students.
 
 
